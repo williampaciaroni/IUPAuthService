@@ -22,10 +22,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-- task: DownloadPipelineArtifact@2
+- task: DownloadBuildArtifacts@0
   inputs:
-    artifact: 'drop'
-    path: $(Build.SourcesDirectory)
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(Build.SourcesDirectory)'
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: '$(Build.SourcesDirectory)/drop'
