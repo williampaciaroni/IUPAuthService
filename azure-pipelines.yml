@@ -33,7 +33,7 @@ steps:
     rootFolderOrFile: '$(Build.SourcesDirectory)/drop'
     includeRootFolder: true
     archiveType: 'zip'
-    archiveFile: '(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+    archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 - task: AzureWebApp@1
   inputs:
