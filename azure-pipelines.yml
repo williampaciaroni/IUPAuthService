@@ -20,11 +20,17 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
-    publishLocation: 'Container'
+    publishLocation: 'FilePath'
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.DefaultWorkingDirectory)'
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Azure per studenti (b0e160a4-e99f-42eb-85f8-f55409ad025b)'
     appType: 'webApp'
     appName: 'IUPUsesservice'
-    package: 'Container/**/*.zip'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
