@@ -11,6 +11,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+- task: PublishBuildArtifacts@1
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Azure per studenti(b0e160a4-e99f-42eb-85f8-f55409ad025b)'
