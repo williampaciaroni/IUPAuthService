@@ -11,13 +11,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'Azure per studenti (b0e160a4-e99f-42eb-85f8-f55409ad025b)'
-    appType: 'webApp'
-    appName: 'IUPUsesservice'
-    package: '$(System.DefaultWorkingDirectory)\**\.zip'
-    deploymentMethod: 'runFromPackage'
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -28,3 +22,15 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+- task: DownloadPipelineArtifact@2
+  inputs:
+    artifact: webApp
+    patterns: '**/*.js'
+    path: $(Build.SourcesDirectory)/bin
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure per studenti (b0e160a4-e99f-42eb-85f8-f55409ad025b)'
+    appType: 'webApp'
+    appName: 'IUPUsesservice'
+    package: '$(System.DefaultWorkingDirectory)\**\.zip'
+    deploymentMethod: 'runFromPackage'
