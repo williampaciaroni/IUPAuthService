@@ -19,18 +19,18 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'authservice'
     publishLocation: 'Container'
 - task: DownloadBuildArtifacts@0
   inputs:
     buildType: 'current'
     downloadType: 'single'
-    artifactName: 'drop'
+    artifactName: 'authservice'
     downloadPath: '$(Build.SourcesDirectory)'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/drop'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/authservice'
     includeRootFolder: true
     archiveType: 'zip'
-    archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
+    archiveFile: '$(System.DefaultWorkingDirectory)/authservice.zip'
     replaceExistingArchive: true
