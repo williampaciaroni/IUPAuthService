@@ -34,3 +34,11 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(System.DefaultWorkingDirectory)/authservice.zip'
     replaceExistingArchive: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure per studenti (b0e160a4-e99f-42eb-85f8-f55409ad025b)'
+    appType: 'webApp'
+    appName: 'IUPUsesservice'
+    package: '$(System.DefaultWorkingDirectory)/authservice.zip'
+    deploymentMethod: 'runFromPackage'
+
