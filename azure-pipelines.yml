@@ -1,27 +1,28 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+name: .NET Core
 
-trigger:
-- master
+on: [push]
 
-pool:
-  vmImage: 'ubuntu-latest'
+jobs:
+  build:
 
-variables:
-  buildConfiguration: 'Release'
+    runs-on: ubuntu-latest
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure per studenti(b0e160a4-e99f-42eb-85f8-f55409ad025b)'
-    appType: 'webApp'
-    WebAppName: 'IUPUsesservice'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    ScriptType: 'Inline Script'
-    InlineScript: ':: You can provide your deployment commands here. One command per line.'
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Release -o dotnetcorewebapp 
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v1
+      with: 
+        app-name: UserService # Replace with your app name
+        publish-profile: $ # Define secret variable in repository settings as per action documentation
+        package: './dotnetcorewebapp' 
