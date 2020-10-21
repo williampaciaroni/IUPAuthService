@@ -49,7 +49,7 @@ namespace IUPAuthService.Controllers
 
             var token = CreateTokenForIdentity(identity);
 
-            return Ok("{\"token\":\"" + token + "\"}");
+            return Ok("{\"token\":\"" + token + "\",\"kennitala\":\"" + currentUser.Kennitala + "\"}");
         }
 
         private AppIdentity VerifyCredentials(string kennitala, string password)
