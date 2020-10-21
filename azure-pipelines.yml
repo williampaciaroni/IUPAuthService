@@ -26,13 +26,7 @@ steps:
     buildType: 'current'
     downloadType: 'single'
     artifactName: 'authservice'
-    downloadPath: '$(Build.SourcesDirectory)'
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/authservice'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(System.DefaultWorkingDirectory)/authservice.zip'
-    replaceExistingArchive: true
+    downloadPath: '$(System.DefaultWorkingDirectory)'
+
 
 
