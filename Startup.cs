@@ -50,7 +50,7 @@ namespace IUPAuthService
                     ValidIssuer = "IUP",
                     ValidAudience = "Audience",
                     IssuerSigningKey = new SymmetricSecurityKey(
-                      Encoding.UTF8.GetBytes("chiaveSegretaSegretissima")
+                      Encoding.UTF8.GetBytes(Configuration["SecretKeyToken"])
                   ),
                     //Tolleranza sulla data di scadenza del token
                     ClockSkew = TimeSpan.Zero

@@ -35,7 +35,9 @@ namespace IUPAuthService.Controllers
             {
                 return BadRequest();
             }
+
             AppIdentity currentUser = VerifyCredentials(tokenRequest.Kennitala, tokenRequest.Password);
+
             if (currentUser == null)
             {
                 return Unauthorized();
